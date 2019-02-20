@@ -1,0 +1,37 @@
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+    RewriteCond %{HTTPS} !on
+    RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+    RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+    RewriteRule (.*) https://%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
+
+    
+
+    RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
+    RewriteRule ^(.*) - [E=BASE:%1]
+
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteRule ^index\.php(/(.*)|$) %{ENV:BASE}/$2 [R=301,L]
+
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule .? - [L]
+
+    RewriteRule .? %{ENV:BASE}/index.php [L]
+
+</IfModule>
+RewriteCond %{HTTP_HOST} ^benson\-shoes\.net$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.benson\-shoes\.net$
+RewriteCond %{HTTPS} !=on
+RewriteRule ^/?$ "https\:\/\/benson\-shoes\.com\/" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^bensonshoes\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.bensonshoes\.com$
+RewriteCond %{HTTPS} !=on
+RewriteRule ^/?$ "https\:\/\/benson\-shoes\.com\/" [R=301,L]
+

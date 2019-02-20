@@ -1,0 +1,17 @@
+/* xs */
+
+@media (max-width: 767px) {
+  .tagline h4 {
+    font-size: 18px;
+  }
+
+  .col-xs-mt-5 {
+    margin-top: 5%;
+  }
+}
+
+@media (max-width: 414px) {
+  .days h2 > span {
+    font-size: 10px;
+  }
+}
